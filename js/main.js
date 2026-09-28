@@ -420,6 +420,44 @@ function initBackground() {
 }
 
 /* =========================================================
+   SCROLL SHORTCUTS
+   ========================================================= */
+
+function initScrollButtons() {
+  var topBtn = byId('scrollTop');
+  var bottomBtn = byId('scrollBottom');
+  var ticking = false;
+
+  function update() {
+    var root = document.documentElement;
+    var y = window.scrollY || root.scrollTop;
+    var max = root.scrollHeight - window.innerHeight;
+    topBtn.classList.toggle('show', y > 400);
+    bottomBtn.classList.toggle('show', max > 400 && y < max - 200);
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  }
+
+  // CSS scroll-behavior handles smooth vs. instant (reduced motion) automatically.
+  topBtn.addEventListener('click', function goTop() {
+    window.scrollTo({ top: 0 });
+  });
+  bottomBtn.addEventListener('click', function goBottom() {
+    window.scrollTo({ top: document.documentElement.scrollHeight });
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  update();
+}
+
+/* =========================================================
    9. MAIN
    ========================================================= */
 
@@ -434,6 +472,7 @@ function init() {
   initProjects();
   initCursorGlow();
   initBackground();
+  initScrollButtons();
 }
 
 if (document.readyState === 'loading') {
