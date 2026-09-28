@@ -458,6 +458,88 @@ function initScrollButtons() {
 }
 
 /* =========================================================
+   GALLERY AND SKILL ICONS
+   ========================================================= */
+
+function initGallery() {
+  var track = byId('galleryTrack');
+  var prev = byId('galPrev');
+  var next = byId('galNext');
+  if (!track) { return; }
+
+  // Hide a photo whose file is missing.
+  queryAll('.gallery-item img', track).forEach(function eachImg(img) {
+    img.addEventListener('error', function hideFigure() { img.parentNode.hidden = true; });
+  });
+
+  function updateButtons() {
+    var max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft >= max - 4;
+  }
+
+  function step(direction) {
+    track.scrollBy({ left: direction * track.clientWidth * 0.8, behavior: 'smooth' });
+  }
+
+  prev.addEventListener('click', function goPrev() { step(-1); });
+  next.addEventListener('click', function goNext() { step(1); });
+  track.addEventListener('scroll', function onTrackScroll() { window.requestAnimationFrame(updateButtons); }, { passive: true });
+  window.addEventListener('resize', updateButtons);
+
+  // Arrow keys when the gallery is focused.
+  track.addEventListener('keydown', function onKey(event) {
+    if (event.key === 'ArrowRight') { event.preventDefault(); step(1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); step(-1); }
+  });
+
+  // Click-and-drag scrolling for mouse users (touch already swipes natively).
+  var startX = 0;
+  var startScroll = 0;
+  var dragging = false;
+
+  track.addEventListener('pointerdown', function onDown(event) {
+    if (event.pointerType !== 'mouse') { return; }
+    dragging = true;
+    startX = event.clientX;
+    startScroll = track.scrollLeft;
+    track.classList.add('dragging');
+  });
+  window.addEventListener('pointermove', function onMove(event) {
+    if (!dragging) { return; }
+    track.scrollLeft = startScroll - (event.clientX - startX);
+  });
+  window.addEventListener('pointerup', function onUp() {
+    if (!dragging) { return; }
+    dragging = false;
+    track.classList.remove('dragging');
+  });
+
+  updateButtons();
+}
+
+function initSkillTiles() {
+  // Stagger delay for each tile inside a group.
+  queryAll('.skill-grid').forEach(function eachGrid(grid) {
+    queryAll('.skill-tile', grid).forEach(function eachTile(tile, index) {
+      tile.style.setProperty('--i', index);
+    });
+  });
+
+  // If a logo file is missing, show a monogram instead of a broken image.
+  queryAll('.skill-ic img').forEach(function eachImg(img) {
+    function useMonogram() {
+      var name = img.parentNode.parentNode.querySelector('.skill-name').textContent.trim();
+      var mono = makeEl('span', 'skill-mono', name.slice(0, 2));
+      mono.setAttribute('aria-hidden', 'true');
+      img.parentNode.replaceChild(mono, img);
+    }
+    img.addEventListener('error', useMonogram);
+    if (img.complete && img.naturalWidth === 0) { useMonogram(); }
+  });
+}
+
+/* =========================================================
    9. MAIN
    ========================================================= */
 
@@ -469,6 +551,8 @@ function init() {
   initReveal();
   initActiveLinks();
   initSkillBars();
+  initSkillTiles();
+  initGallery();
   initProjects();
   initCursorGlow();
   initBackground();

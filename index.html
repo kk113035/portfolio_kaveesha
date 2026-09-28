@@ -80,6 +80,22 @@
           
         </div>
       </div>
+      <div class="gallery reveal">
+  <div class="gallery-head">
+    <h3>Gallery</h3>
+    <div class="gallery-nav">
+      <button type="button" class="icon-btn" id="galPrev" aria-label="Scroll gallery left">←</button>
+      <button type="button" class="icon-btn" id="galNext" aria-label="Scroll gallery right">→</button>
+    </div>
+  </div>
+  <div class="gallery-track" id="galleryTrack" tabindex="0" role="region" aria-label="Photo gallery, scrolls horizontally">
+    <figure class="gallery-item"><img src="assets/images/gallery/1.jpeg" alt="Kaveesha Punchihewa, photo 1" width="480" height="600" loading="lazy" decoding="async" draggable="false"></figure>
+    <figure class="gallery-item"><img src="assets/images/gallery/2.jpeg" alt="Kaveesha Punchihewa, photo 2" width="480" height="600" loading="lazy" decoding="async" draggable="false"></figure>
+    <figure class="gallery-item"><img src="assets/images/gallery/3.jpeg" alt="Kaveesha Punchihewa, photo 3" width="480" height="600" loading="lazy" decoding="async" draggable="false"></figure>
+    <figure class="gallery-item"><img src="assets/images/gallery/4.jpeg" alt="Kaveesha Punchihewa, photo 4" width="480" height="600" loading="lazy" decoding="async" draggable="false"></figure>
+    <figure class="gallery-item"><img src="assets/images/gallery/5.jpeg" alt="Kaveesha Punchihewa, photo 5" width="480" height="600" loading="lazy" decoding="async" draggable="false"></figure>
+  </div>
+</div>
     </div>
   </section>
 
@@ -123,31 +139,51 @@
     <div class="wrap">
       <div class="section-head reveal"><span class="section-idx">[ 03 ]</span><h2>Skills</h2></div>
 
-      <div class="stat-block reveal">
-        <div class="stat-block-label">Languages</div>
-        <div class="stat-row" data-value="85"><span class="stat-name">Python</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-        <div class="stat-row" data-value="80"><span class="stat-name">Java</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-      </div>
+      <div class="skill-group reveal">
+  <div class="skill-group-label">Languages</div>
+  <ul class="skill-grid">
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/python.svg" alt="" width="30" height="30"></span><span class="skill-name">Python</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/java.svg" alt="" width="30" height="30"></span><span class="skill-name">Java</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/micropython.svg" alt="" width="30" height="30"></span><span class="skill-name">MicroPython</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/javascript.svg" alt="" width="30" height="30"></span><span class="skill-name">JavaScript</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/html5.svg" alt="" width="30" height="30"></span><span class="skill-name">HTML</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/css3.svg" alt="" width="30" height="30"></span><span class="skill-name">CSS</span></li>
+  </ul>
+</div>
 
-      <div class="stat-block reveal">
-        <div class="stat-block-label">ML &amp; Data</div>
-        <div class="stat-row" data-value="65"><span class="stat-name">PyTorch</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-        <div class="stat-row" data-value="65"><span class="stat-name">Streamlit</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-        <div class="stat-row" data-value="60"><span class="stat-name">Explainable AI</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-      </div>
+<div class="skill-group reveal">
+  <div class="skill-group-label">Frameworks &amp; Libraries</div>
+  <ul class="skill-grid">
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/dotnetcore.svg" alt="" width="30" height="30"></span><span class="skill-name">ASP.NET</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/pytorch.svg" alt="" width="30" height="30"></span><span class="skill-name">PyTorch</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/streamlit.svg" alt="" width="30" height="30"></span><span class="skill-name">Streamlit</span></li>
+  </ul>
+</div>
 
-      <div class="stat-block reveal">
-        <div class="stat-block-label">Embedded &amp; Systems</div>
-        <div class="stat-row" data-value="80"><span class="stat-name">MicroPython</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-        <div class="stat-row" data-value="65"><span class="stat-name">I2C sensors</span><div class="stat-bar" aria-hidden="true"><div class="stat-fill"></div></div></div>
-      </div>
+<div class="skill-group reveal">
+  <div class="skill-group-label">Tech Stack &amp; Tools</div>
+  <ul class="skill-grid">
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">🧠</span><span class="skill-name">Machine Learning</span></li>
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">📡</span><span class="skill-name">IoT &amp; Sensors</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/raspberrypi.svg" alt="" width="30" height="30"></span><span class="skill-name">Raspberry Pi</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/linux.svg" alt="" width="30" height="30"></span><span class="skill-name">Linux</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/git.svg" alt="" width="30" height="30"></span><span class="skill-name">Git</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/github.svg" alt="" width="30" height="30"></span><span class="skill-name">GitHub</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/githubactions.svg" alt="" width="30" height="30"></span><span class="skill-name">CI/CD</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/docker.svg" alt="" width="30" height="30"></span><span class="skill-name">Docker</span></li>
+    <li class="skill-tile"><span class="skill-ic"><img src="assets/icons/kubernetes.svg" alt="" width="30" height="30"></span><span class="skill-name">Kubernetes</span></li>
+  </ul>
+</div>
 
-      <div class="stat-block reveal">
-        <div class="stat-block-label">DevOps · in progress</div>
-        <ul class="badges">
-          <li>Linux</li><li>Networking</li><li>Git</li><li>CI/CD</li><li>Docker</li><li>Kubernetes</li>
-        </ul>
-      </div>
+<div class="skill-group reveal">
+  <div class="skill-group-label">Other Skills</div>
+  <ul class="skill-grid">
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">🧩</span><span class="skill-name">Problem Solving</span></li>
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">🤝</span><span class="skill-name">Teamwork</span></li>
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">💡</span><span class="skill-name">Fast Learner</span></li>
+    <li class="skill-tile"><span class="skill-ic skill-emoji" aria-hidden="true">⚡</span><span class="skill-name">Working Smart</span></li>
+  </ul>
+</div>
     </div>
   </section>
 
