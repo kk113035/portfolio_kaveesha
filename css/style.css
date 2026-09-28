@@ -56,6 +56,8 @@ a:focus-visible, button:focus-visible, .level-card:focus-visible { outline: 2px 
 .hero-title { font-size: clamp(38px, 7vw, 68px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.05; min-height: 1.1em; }
 .hero-desc { margin-top: 22px; font-size: 17px; color: var(--muted); max-width: 52ch; }
 .hero-actions { margin-top: 34px; display: flex; gap: 14px; flex-wrap: wrap; }
+.role-line { margin-top: 18px; font-size: clamp(18px, 2.6vw, 24px); font-weight: 600; }
+.role-text { color: var(--accent-text); }
 
 .btn { font-family: var(--mono); font-size: 14px; font-weight: 500; padding: 13px 22px; border-radius: 8px;
   border: 1px solid transparent; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
