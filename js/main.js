@@ -20,6 +20,22 @@ var LEVELS = {
   }
 };
 
+var CONFIG = {
+  roles: ['ML models', 'IoT systems', 'clean software', 'DevOps pipelines'],
+  contact: {
+    email: '',     // example: 'name@example.com'
+    github: '',    // example: 'https://github.com/your-username'
+    linkedin: ''   // example: 'https://www.linkedin.com/in/your-name'
+  },
+  allowedHosts: {
+    github: ['github.com', 'www.github.com'],
+    linkedin: ['linkedin.com', 'www.linkedin.com']
+  },
+  xpPerLevel: 40,
+  gameSeconds: 20,
+  gameHoles: 9
+};
+
 // ---------- Theme toggle ----------
 (function initTheme() {
   var body = document.body;
@@ -52,6 +68,39 @@ var LEVELS = {
     tick();
   }
 })();
+
+/* =========================================================
+   6. HERO: ROLE TYPER, COUNTERS, AVATAR
+   ========================================================= */
+
+function initRoleTyper() {
+  var target = byId('roleText');
+  if (prefersReducedMotion()) { return; }
+
+  var roleIndex = 0;
+  var charIndex = 0;
+  var deleting = false;
+
+  function tick() {
+    var word = CONFIG.roles[roleIndex];
+    charIndex += deleting ? -1 : 1;
+    target.textContent = word.slice(0, charIndex);
+
+    var delay = deleting ? 40 : 85;
+    if (!deleting && charIndex === word.length) {
+      deleting = true;
+      delay = 1400;
+    } else if (deleting && charIndex === 0) {
+      deleting = false;
+      roleIndex = (roleIndex + 1) % CONFIG.roles.length;
+      delay = 350;
+    }
+    window.setTimeout(tick, delay);
+  }
+
+  target.textContent = '';
+  tick();
+}
 
 // ---------- Scroll reveal ----------
 (function scrollReveal() {
