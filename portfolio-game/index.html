@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Kaveesha Punchihewa — Portfolio</title>
+<meta name="description" content="Kaveesha Punchihewa — Computing student building applied ML and embedded systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dark">
+
+<canvas id="bg-canvas"></canvas>
+<div id="cursor-glow"></div>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="nav-logo">KP<span class="cursor-blink">_</span></a>
+    <div class="nav-right">
+      <a href="#projects">Levels</a>
+      <a href="#skills">Stats</a>
+      <a href="#contact">Save File</a>
+      <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">◐</button>
+    </div>
+  </div>
+</nav>
+
+<header id="top" class="hero">
+  <div class="wrap hero-inner">
+    <p class="tag-line">// SOFTWARE ENGINEER · DEVOPS · SRI LANKA</p>
+    <h1 class="hero-title">
+      <span id="typed-name"></span><span class="cursor-blink">|</span>
+    </h1>
+    <p class="hero-desc">Computing student building applied ML and embedded systems — from ECG signal
+      classification to IoT sensor networks. Currently on a quest for SWE / DevOps / QA internship roles.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="assets/cv/cv.pdf" download>
+      <span>⇩</span> Download CV
+      </a>
+      <a class="btn btn-ghost" href="#projects">View Levels ▸</a>
+    </div>
+    <div class="scroll-hint"><span></span>scroll</div>
+  </div>
+</header>
+
+<main>
+
+  <section id="about" class="section reveal">
+    <div class="wrap">
+      <div class="section-head"><span class="section-idx">[ 01 ]</span><h2>Player Bio</h2></div>
+      <p class="lede">I'm a computing student at IIT Sri Lanka (affiliated with the University of Westminster),
+        graduating with a Second Upper Class. I work where applied machine learning meets embedded hardware —
+        signal, data, and physical constraints colliding at once. Currently grinding DevOps fundamentals:
+        Linux, networking, Git, CI/CD, containers — while sharpening core SE interview skills.</p>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-idx">[ 02 ]</span><h2>Levels Cleared</h2></div>
+      <p class="lede muted reveal">Click a level card to open the mission log.</p>
+
+      <div class="level-grid">
+
+        <article class="level-card reveal" data-level="chagas" tabindex="0" role="button" aria-expanded="false">
+          <div class="level-card-top">
+            <span class="level-tag">LEVEL 01 · BOSS FIGHT</span>
+            <span class="level-diff">DIFFICULTY ★★★★★</span>
+          </div>
+          <h3>ChagasVision</h3>
+          <p class="level-sub">Deep learning ECG classifier for Chagas disease detection</p>
+          <div class="level-stack">
+            <span>Python</span><span>PyTorch</span><span>Streamlit</span><span>Grad-CAM</span>
+          </div>
+          <div class="level-expand-hint">+ open mission log</div>
+        </article>
+
+        <article class="level-card reveal" data-level="iot" tabindex="0" role="button" aria-expanded="false">
+          <div class="level-card-top">
+            <span class="level-tag">LEVEL 02 · CO-OP MAP</span>
+            <span class="level-diff">DIFFICULTY ★★★★☆</span>
+          </div>
+          <h3>IoT Sensor Dashboard</h3>
+          <p class="level-sub">Live environmental logging across four campus sites</p>
+          <div class="level-stack">
+            <span>MicroPython</span><span>Pico W</span><span>Google Sheets API</span><span>I2C</span>
+          </div>
+          <div class="level-expand-hint">+ open mission log</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-idx">[ 03 ]</span><h2>Character Stats</h2></div>
+
+      <div class="stat-block reveal">
+        <div class="stat-block-label">Languages</div>
+        <div class="stat-row" data-value="90"><span class="stat-name">Python</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">90%</span></div>
+        <div class="stat-row" data-value="80"><span class="stat-name">Java</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">80%</span></div>
+      </div>
+
+      <div class="stat-block reveal">
+        <div class="stat-block-label">ML &amp; Data</div>
+        <div class="stat-row" data-value="75"><span class="stat-name">PyTorch</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">75%</span></div>
+        <div class="stat-row" data-value="70"><span class="stat-name">Streamlit</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">70%</span></div>
+        <div class="stat-row" data-value="65"><span class="stat-name">XAI / Grad-CAM</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">65%</span></div>
+      </div>
+
+      <div class="stat-block reveal">
+        <div class="stat-block-label">Embedded &amp; Systems</div>
+        <div class="stat-row" data-value="80"><span class="stat-name">MicroPython</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">80%</span></div>
+        <div class="stat-row" data-value="70"><span class="stat-name">I2C / Hardware</span><div class="stat-bar"><div class="stat-fill"></div></div><span class="stat-pct">70%</span></div>
+      </div>
+
+      <div class="stat-block reveal">
+        <div class="stat-block-label">Quest In Progress — DevOps</div>
+        <div class="skill-badges">
+          <span class="badge">Linux</span><span class="badge">Networking</span><span class="badge">Git</span>
+          <span class="badge">CI/CD</span><span class="badge">Docker</span><span class="badge">Kubernetes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="wrap">
+      <div class="section-head reveal"><span class="section-idx">[ 04 ]</span><h2>Save File</h2></div>
+      <p class="lede muted reveal">Open to software engineering, DevOps, and QA internship opportunities in Sri Lanka.</p>
+      <div class="contact-grid reveal">
+        <a class="contact-card" href="#" onclick="return false" aria-disabled="true">
+          <span class="contact-icon">✉</span><span>Email</span>
+        </a>
+        <a class="contact-card" href="#" onclick="return false" aria-disabled="true">
+          <span class="contact-icon">⌨</span><span>GitHub</span>
+        </a>
+        <a class="contact-card" href="#" onclick="return false" aria-disabled="true">
+          <span class="contact-icon">◈</span><span>LinkedIn</span>
+        </a>
+      </div>
+      <p class="placeholder-note reveal">Contact links and CV are placeholders — drop them in and this panel goes live.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Kaveesha Punchihewa · built from scratch, no engine required</div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
