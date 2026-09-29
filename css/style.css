@@ -2,18 +2,19 @@
    1. THEME VARIABLES  (dark is default, light overrides)
    ========================================================= */
 :root {
-  --bg: #0B0D12;
-  --surface: #12151C;
-  --surface-2: #171B24;
-  --text: #ECEEF3;
-  --muted: #8A90A2;
-  --border: #262B38;
-  --accent: #6E56FF;
-  --accent-text: #A99BFF;
-  --accent-2: #00E5B0;
-  --accent-soft: rgba(110, 86, 255, 0.12);
-  --dot-rgb: 110, 86, 255;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  --bg: #06070D;
+  --surface: #0E1120;
+  --surface-2: #141833;
+  --text: #E7F6FF;
+  --muted: #7C87A8;
+  --border: #232A4D;
+  --accent: #00E5FF;
+  --accent-text: #5FF0FF;
+  --accent-2: #FF2E88;
+  --accent-soft: rgba(0, 229, 255, 0.12);
+  --dot-rgb: 0, 229, 255;
+  --icon-bg: #151A33;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
   --sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, "Cascadia Code", Consolas, monospace;
   --topbar-h: 64px;
@@ -21,20 +22,20 @@
 }
 
 [data-theme="light"] {
-  --bg: #F5F5F2;
+  --bg: #F3F5FB;
   --surface: #FFFFFF;
-  --surface-2: #F0F0EC;
-  --text: #14151A;
-  --muted: #5F6272;
-  --border: #E1E1DC;
-  --accent: #5138E0;
-  --accent-text: #4A2FE0;
-  --accent-2: #007F66;
-  --accent-soft: rgba(81, 56, 224, 0.08);
-  --dot-rgb: 81, 56, 224;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  --surface-2: #EAEDF7;
+  --text: #0A0E1F;
+  --muted: #545E7D;
+  --border: #D9DEEE;
+  --accent: #0086A8;
+  --accent-text: #006C8A;
+  --accent-2: #B8106E;
+  --accent-soft: rgba(0, 134, 168, 0.08);
+  --dot-rgb: 0, 134, 168;
+  --icon-bg: #FFFFFF;
+  --shadow: 0 8px 30px rgba(20, 20, 40, 0.08);
 }
-
 /* =========================================================
    2. BASE
    ========================================================= */
@@ -54,6 +55,11 @@ body {
 body.modal-open { overflow: hidden; }
 
 ::selection { background: var(--accent); color: #fff; }
+
+html { scrollbar-width: thin; scrollbar-color: var(--accent) var(--surface); }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 6px; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 ul { list-style: none; }
@@ -88,6 +94,20 @@ a:focus-visible, button:focus-visible {
 }
 @media (pointer: coarse), (max-width: 760px) { #cursorGlow { display: none; } }
 
+#scanline {
+  position: fixed; inset: 0; z-index: 3; pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 3px);
+  mix-blend-mode: overlay; opacity: 0.5;
+}
+[data-theme="light"] #scanline { opacity: 0.2; }
+
+.scan-beam {
+  position: fixed; left: 0; right: 0; top: -140px; height: 140px; z-index: 3; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(var(--dot-rgb), 0.07), transparent);
+  animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove { to { top: 100%; } }
+
 /* =========================================================
    3. TOP BAR AND MOBILE TAB BAR
    ========================================================= */
@@ -101,7 +121,7 @@ a:focus-visible, button:focus-visible {
 }
 .topbar-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: var(--topbar-h); }
 
-.brand { font-family: var(--mono); font-weight: 500; font-size: 18px; text-decoration: none; letter-spacing: 0.02em; }
+.brand { position: relative; font-family: var(--mono); font-weight: 500; font-size: 18px; text-decoration: none; letter-spacing: 0.02em; }
 
 .desktop-nav { display: flex; align-items: center; gap: 26px; margin-left: auto; margin-right: 16px; }
 .desktop-nav a { font-family: var(--mono); font-size: 14px; color: var(--muted); text-decoration: none; }
@@ -117,6 +137,23 @@ a:focus-visible, button:focus-visible {
 .tabbar { display: none; }
 
 /* =========================================================
+   3b. GLITCH TEXT (brand + section headings)
+   ========================================================= */
+.brand::before, .brand::after, h2[data-text]::before, h2[data-text]::after {
+  content: attr(data-text); position: absolute; left: 0; top: 0; width: 100%; opacity: 0;
+}
+.brand:hover::before, .section-head:hover h2[data-text]::before {
+  color: var(--accent); opacity: 0.85; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  animation: glitchTop 0.35s steps(2) 1;
+}
+.brand:hover::after, .section-head:hover h2[data-text]::after {
+  color: var(--accent-2); opacity: 0.85; clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  animation: glitchBottom 0.35s steps(2) 1;
+}
+@keyframes glitchTop { 0%,100% { transform: translate(0); } 30% { transform: translate(-3px,-1px); } 60% { transform: translate(3px,1px); } }
+@keyframes glitchBottom { 0%,100% { transform: translate(0); } 30% { transform: translate(3px,1px); } 60% { transform: translate(-3px,-1px); } }
+
+/* =========================================================
    4. BUTTONS
    ========================================================= */
 .btn {
@@ -125,10 +162,10 @@ a:focus-visible, button:focus-visible {
   transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .btn:active { transform: scale(0.97); }
-.btn-primary { background: var(--accent); color: #fff; }
-.btn-primary:hover { box-shadow: 0 0 24px rgba(110, 86, 255, 0.45); }
+.btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #04050A; box-shadow: 0 0 16px rgba(var(--dot-rgb), 0.4); }
+.btn-primary:hover { box-shadow: 0 0 30px rgba(var(--dot-rgb), 0.65); }
 .btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
-.btn-ghost:hover { border-color: var(--accent); color: var(--accent-text); }
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent-text); box-shadow: 0 0 14px rgba(var(--dot-rgb), 0.3); }
 
 /* =========================================================
    5. REVEAL ON SCROLL (only hidden while JS is running)
@@ -160,8 +197,8 @@ a:focus-visible, button:focus-visible {
    ========================================================= */
 .section { position: relative; z-index: 2; padding: 64px 0; border-top: 1px solid var(--border); }
 .section-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 26px; }
-.section-idx { font-family: var(--mono); font-size: 13px; color: var(--accent-text); }
-h2 { font-size: 26px; font-weight: 600; }
+.section-idx { font-family: var(--mono); font-size: 13px; color: var(--accent-text); text-shadow: 0 0 8px rgba(var(--dot-rgb), 0.6); }
+h2 { position: relative; font-size: 26px; font-weight: 600; }
 h3 { font-size: 20px; font-weight: 600; }
 .lede { font-size: 16px; max-width: 64ch; margin-bottom: 14px; }
 .lede.muted { color: var(--muted); margin-bottom: 26px; }
@@ -194,14 +231,21 @@ h3 { font-size: 20px; font-weight: 600; }
 .level-card {
   position: relative; overflow: hidden; width: 100%; display: flex; flex-direction: column;
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; cursor: pointer;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+  transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .level-card::before {
   content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background: linear-gradient(135deg, var(--accent-soft), transparent 60%); transition: opacity 0.25s ease;
 }
-.level-card:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+.level-card::after {
+  content: ""; position: absolute; left: 0; top: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+}
+.level-card:hover { border-color: var(--accent); box-shadow: 0 0 30px rgba(var(--dot-rgb), 0.25), var(--shadow); }
 .level-card:hover::before { opacity: 1; }
+.level-card:hover::after { transform: scaleX(1); }
 .level-card > * { position: relative; z-index: 1; }
 
 .level-card-top { display: flex; justify-content: space-between; gap: 8px; margin-bottom: 14px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--muted); }
@@ -234,7 +278,7 @@ h3 { font-size: 20px; font-weight: 600; }
   font-family: var(--mono); overflow-wrap: anywhere;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.contact-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--shadow); }
+.contact-card:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 0 20px rgba(var(--dot-rgb), 0.25), var(--shadow); }
 .contact-ic { font-size: 22px; color: var(--accent-2); }
 .contact-name { font-size: 14px; font-weight: 600; }
 .contact-detail { font-size: 11.5px; color: var(--muted); }
@@ -264,7 +308,7 @@ h3 { font-size: 20px; font-weight: 600; }
               background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 .scroll-btn.show { opacity: 1; visibility: visible; transform: none; }
-.scroll-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.scroll-btn:hover { background: var(--accent); border-color: var(--accent); color: #04050A; box-shadow: 0 0 18px rgba(var(--dot-rgb), 0.5); }
 .scroll-btn:active { transform: scale(0.94); }
 
 /* =========================================================
@@ -298,6 +342,7 @@ h3 { font-size: 20px; font-weight: 600; }
   transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 .gallery-item:hover img { transform: scale(1.06); }
+.gallery-item:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(var(--dot-rgb), 0.25); }
 
 /* =========================================================
    SKILLS (logo tiles)
@@ -315,7 +360,7 @@ h3 { font-size: 20px; font-weight: 600; }
   background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
   transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
-.skill-tile:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
+.skill-tile:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: 0 0 20px rgba(var(--dot-rgb), 0.3); }
 
 .skill-ic {
   width: 52px; height: 52px; display: grid; place-items: center; border-radius: 14px;
@@ -417,4 +462,5 @@ h3 { font-size: 20px; font-weight: 600; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
+  #scanline, .scan-beam { display: none; }
 }

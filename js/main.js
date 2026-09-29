@@ -104,7 +104,7 @@ function applyThemeUi(theme) {
   button.textContent = theme === 'dark' ? '☀' : '☾';
   button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
   var meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) { meta.setAttribute('content', theme === 'dark' ? '#0B0D12' : '#F5F5F2'); }
+    if (meta) { meta.setAttribute('content', theme === 'dark' ? '#06070D' : '#F3F5FB'); }
   refreshColors();
 }
 
@@ -540,6 +540,27 @@ function initSkillTiles() {
 }
 
 /* =========================================================
+   CARD TILT (cyberpunk interactive touch)
+   ========================================================= */
+
+function initCardTilt() {
+  if (window.matchMedia('(pointer: coarse)').matches || prefersReducedMotion()) { return; }
+  queryAll('.level-card').forEach(function eachCard(card) {
+    card.addEventListener('pointermove', function onMove(event) {
+      var rect = card.getBoundingClientRect();
+      var px = (event.clientX - rect.left) / rect.width - 0.5;
+      var py = (event.clientY - rect.top) / rect.height - 0.5;
+      card.style.setProperty('--tilt-x', (py * -6).toFixed(2) + 'deg');
+      card.style.setProperty('--tilt-y', (px * 6).toFixed(2) + 'deg');
+    });
+    card.addEventListener('pointerleave', function onLeave() {
+      card.style.setProperty('--tilt-x', '0deg');
+      card.style.setProperty('--tilt-y', '0deg');
+    });
+  });
+}
+
+/* =========================================================
    9. MAIN
    ========================================================= */
 
@@ -557,6 +578,8 @@ function init() {
   initCursorGlow();
   initBackground();
   initScrollButtons();
+  initCursorGlow();
+  initCardTilt();
 }
 
 if (document.readyState === 'loading') {
