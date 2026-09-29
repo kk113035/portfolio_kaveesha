@@ -22,8 +22,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <canvas id="bgCanvas" aria-hidden="true"></canvas>
 <div id="cursorGlow" aria-hidden="true"></div>
-<div id="scanline" aria-hidden="true"></div>
-<div class="scan-beam" aria-hidden="true"></div>
+
 
 <!-- ============ TOP BAR ============ -->
 <header class="topbar">
@@ -61,6 +60,14 @@
       <div class="hero-actions">
         <a class="btn btn-primary" href="assets/cv/cv.pdf" download>⇩ Download CV</a>
         <a class="btn btn-ghost" href="#projects">View Projects ▸</a>
+      </div>
+
+      <div class="terminal reveal" aria-hidden="true">
+        <div class="terminal-bar">
+          <span class="term-dot dot-red"></span><span class="term-dot dot-amber"></span><span class="term-dot dot-green"></span>
+          <span class="terminal-title">bash — kaveesha@portfolio</span>
+        </div>
+        <pre class="terminal-body"><code id="terminalCode"></code><span class="term-cursor">▌</span></pre>
       </div>
     </div>
   </section>
@@ -103,6 +110,15 @@
 
   <!-- ============ PROJECTS ============ -->
   <section id="projects" class="section">
+
+    <div class="code-float-wrap" aria-hidden="true">
+      <span class="code-float">&lt;/&gt;</span>
+      <span class="code-float">{ }</span>
+      <span class="code-float">fn()</span>
+      <span class="code-float">01</span>
+      <span class="code-float">=&gt;</span>
+      <span class="code-float">git</span>
+    </div>
     <div class="wrap">
       <div class="section-head reveal"><span class="section-idx">[ 02 ]</span><h2 data-text="Projects">Projects</h2></div>
       <p class="lede muted reveal">Select a project to see the details.</p>

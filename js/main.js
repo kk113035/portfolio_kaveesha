@@ -104,7 +104,7 @@ function applyThemeUi(theme) {
   button.textContent = theme === 'dark' ? '☀' : '☾';
   button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
   var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) { meta.setAttribute('content', theme === 'dark' ? '#06070D' : '#F3F5FB'); }
+  if (meta) { meta.setAttribute('content', theme === 'dark' ? '#0B0D12' : '#F5F5F2'); }
   refreshColors();
 }
 
@@ -561,6 +561,50 @@ function initCardTilt() {
 }
 
 /* =========================================================
+   TERMINAL TYPING ANIMATION
+   ========================================================= */
+
+var TERMINAL_LINES = [
+  'console.log("Hello, I build things that work.");',
+  'while (curious) { keepLearning(); }',
+  'fix(bug) { return fixRootCause(bug); }',
+  'status: open_to_work = true;'
+];
+
+function initTerminal() {
+  var codeEl = byId('terminalCode');
+  if (!codeEl) { return; }
+
+  if (prefersReducedMotion()) {
+    codeEl.textContent = TERMINAL_LINES[0];
+    return;
+  }
+
+  var lineIndex = 0;
+  var charIndex = 0;
+  var deleting = false;
+
+  function tick() {
+    var full = TERMINAL_LINES[lineIndex];
+    charIndex += deleting ? -1 : 1;
+    codeEl.textContent = full.slice(0, charIndex);
+
+    var delay = deleting ? 28 : 42;
+    if (!deleting && charIndex === full.length) {
+      deleting = true;
+      delay = 1600;
+    } else if (deleting && charIndex === 0) {
+      deleting = false;
+      lineIndex = (lineIndex + 1) % TERMINAL_LINES.length;
+      delay = 400;
+    }
+    window.setTimeout(tick, delay);
+  }
+
+  tick();
+}
+
+/* =========================================================
    9. MAIN
    ========================================================= */
 
@@ -578,8 +622,8 @@ function init() {
   initCursorGlow();
   initBackground();
   initScrollButtons();
-  initCursorGlow();
   initCardTilt();
+  initTerminal();
 }
 
 if (document.readyState === 'loading') {

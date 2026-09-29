@@ -2,19 +2,19 @@
    1. THEME VARIABLES  (dark is default, light overrides)
    ========================================================= */
 :root {
-  --bg: #06070D;
-  --surface: #0E1120;
-  --surface-2: #141833;
-  --text: #E7F6FF;
-  --muted: #7C87A8;
-  --border: #232A4D;
-  --accent: #00E5FF;
-  --accent-text: #5FF0FF;
-  --accent-2: #FF2E88;
-  --accent-soft: rgba(0, 229, 255, 0.12);
-  --dot-rgb: 0, 229, 255;
-  --icon-bg: #151A33;
-  --shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --bg: #0B0D12;
+  --surface: #12151C;
+  --surface-2: #171B24;
+  --text: #ECEEF3;
+  --muted: #9BA2B8;
+  --border: #262B38;
+  --accent: #6E56FF;
+  --accent-text: #A99BFF;
+  --accent-2: #00E5B0;
+  --accent-soft: rgba(110, 86, 255, 0.12);
+  --dot-rgb: 110, 86, 255;
+  --icon-bg: #F2F3F8;
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
   --sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, "Cascadia Code", Consolas, monospace;
   --topbar-h: 64px;
@@ -22,19 +22,19 @@
 }
 
 [data-theme="light"] {
-  --bg: #F3F5FB;
+  --bg: #F5F5F2;
   --surface: #FFFFFF;
-  --surface-2: #EAEDF7;
-  --text: #0A0E1F;
-  --muted: #545E7D;
-  --border: #D9DEEE;
-  --accent: #0086A8;
-  --accent-text: #006C8A;
-  --accent-2: #B8106E;
-  --accent-soft: rgba(0, 134, 168, 0.08);
-  --dot-rgb: 0, 134, 168;
+  --surface-2: #F0F0EC;
+  --text: #14151A;
+  --muted: #4E5470;
+  --border: #E1E1DC;
+  --accent: #5138E0;
+  --accent-text: #4A2FE0;
+  --accent-2: #007F66;
+  --accent-soft: rgba(81, 56, 224, 0.08);
+  --dot-rgb: 81, 56, 224;
   --icon-bg: #FFFFFF;
-  --shadow: 0 8px 30px rgba(20, 20, 40, 0.08);
+  --shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 /* =========================================================
    2. BASE
@@ -94,26 +94,14 @@ a:focus-visible, button:focus-visible {
 }
 @media (pointer: coarse), (max-width: 760px) { #cursorGlow { display: none; } }
 
-#scanline {
-  position: fixed; inset: 0; z-index: 3; pointer-events: none;
-  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 3px);
-  mix-blend-mode: overlay; opacity: 0.5;
-}
-[data-theme="light"] #scanline { opacity: 0.2; }
 
-.scan-beam {
-  position: fixed; left: 0; right: 0; top: -140px; height: 140px; z-index: 3; pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(var(--dot-rgb), 0.07), transparent);
-  animation: scanMove 8s linear infinite;
-}
-@keyframes scanMove { to { top: 100%; } }
 
 /* =========================================================
    3. TOP BAR AND MOBILE TAB BAR
    ========================================================= */
 .topbar {
   position: sticky; top: 0; z-index: 60;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -124,7 +112,17 @@ a:focus-visible, button:focus-visible {
 .brand { position: relative; font-family: var(--mono); font-weight: 500; font-size: 18px; text-decoration: none; letter-spacing: 0.02em; }
 
 .desktop-nav { display: flex; align-items: center; gap: 26px; margin-left: auto; margin-right: 16px; }
-.desktop-nav a { font-family: var(--mono); font-size: 14px; color: var(--muted); text-decoration: none; }
+.desktop-nav a {
+  position: relative; padding: 4px 2px;
+  font-family: var(--mono); font-size: 14px; text-decoration: none;
+  color: color-mix(in srgb, var(--text) 68%, transparent);
+}
+.desktop-nav a::after {
+  content: ""; position: absolute; left: 0; right: 100%; bottom: -4px; height: 2px;
+  background: var(--accent); transition: right 0.25s ease;
+}
+.desktop-nav a:hover, .desktop-nav a.active { color: var(--accent-text); }
+.desktop-nav a:hover::after, .desktop-nav a.active::after { right: 0; }
 .desktop-nav a:hover, .desktop-nav a.active { color: var(--accent-text); }
 
 .icon-btn {
@@ -176,6 +174,30 @@ a:focus-visible, button:focus-visible {
 /* =========================================================
    6. HERO
    ========================================================= */
+
+/* terminal typing widget */
+.terminal {
+  margin-top: 34px; max-width: 480px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+  box-shadow: var(--shadow); overflow: hidden;
+}
+.terminal-bar {
+  display: flex; align-items: center; gap: 8px; padding: 10px 14px;
+  background: var(--surface-2); border-bottom: 1px solid var(--border);
+}
+.term-dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot-red { background: #FF5F56; }
+.dot-amber { background: #FFBD2E; }
+.dot-green { background: #27C93F; }
+.terminal-title { margin-left: 8px; font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+.terminal-body {
+  margin: 0; padding: 16px 18px; min-height: 76px;
+  font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--accent-text);
+  white-space: pre-wrap; word-break: break-word;
+}
+.term-cursor { color: var(--accent); animation: blink 1s steps(1) infinite; }
+
+@media (max-width: 760px) { .terminal { max-width: 100%; } }
 .hero { min-height: 84vh; display: flex; align-items: center; position: relative; z-index: 2; }
 .hero-inner { padding: 60px 24px; }
 .tag-line { font-family: var(--mono); font-size: 13px; color: var(--accent-2); letter-spacing: 0.05em; margin-bottom: 20px; }
@@ -411,6 +433,25 @@ h3 { font-size: 20px; font-weight: 600; }
 .m-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
 #modalContent .m-note { margin: 16px 0 0; font-family: var(--mono); font-size: 12px; }
 
+
+/* floating code glyphs, purely decorative */
+.code-float-wrap { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 1; }
+.code-float {
+  position: absolute; bottom: -40px; font-family: var(--mono); color: var(--accent-text);
+  opacity: 0; animation: codeFloat 14s linear infinite;
+}
+.code-float:nth-child(1) { left: 6%;  font-size: 15px; animation-delay: 0s; }
+.code-float:nth-child(2) { left: 22%; font-size: 13px; animation-delay: 2.2s; }
+.code-float:nth-child(3) { left: 40%; font-size: 16px; animation-delay: 4.4s; }
+.code-float:nth-child(4) { left: 58%; font-size: 12px; animation-delay: 6.6s; }
+.code-float:nth-child(5) { left: 74%; font-size: 15px; animation-delay: 8.8s; }
+.code-float:nth-child(6) { left: 90%; font-size: 13px; animation-delay: 11s; }
+@keyframes codeFloat {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: 0.16; }
+  85% { opacity: 0.1; }
+  100% { transform: translateY(-420px); opacity: 0; }
+}
 /* =========================================================
    9. RESPONSIVE
    ========================================================= */
@@ -430,9 +471,11 @@ h3 { font-size: 20px; font-weight: 600; }
     border-top: 1px solid var(--border);
   }
   .tabbar a {
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-    height: var(--tabbar-h); font-family: var(--mono); font-size: 11px; text-decoration: none; color: var(--muted);
-  }
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  height: var(--tabbar-h); font-family: var(--mono); font-size: 11px; text-decoration: none;
+  color: color-mix(in srgb, var(--text) 62%, transparent);
+}
+.tabbar a.active { color: var(--accent-text); }
   .tabbar a.active { color: var(--accent-text); }
   .tab-ic { font-size: 17px; }
 
